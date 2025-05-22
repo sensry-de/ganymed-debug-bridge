@@ -11,8 +11,8 @@ This repo is holding the USoC Debug Bridge.
     sudo apt install libSDL2-2.0 pyelftools
     ```
 
+* store entire repo to ex: `/opt/usoc_debug_bridge`
 * add to ~/.bashrc
-
     ```
     # debug bridge
     export PATH=/opt/usoc_debug_bridge/bin:$PATH
