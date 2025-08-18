@@ -220,11 +220,30 @@ class debug_bridge(object):
                         addr = segment['p_paddr'] + segment['p_filesz']
                         size = segment['p_memsz'] - segment['p_filesz']
                         print ('Init section to 0 (base: 0x%x, size: 0x%x)' % (addr, size))
-                        self.write(
-                            addr,
-                            size,
-                            [0] * size
-                        )
+
+                        max_section_size = 0x60000
+                        size = 0
+                        while size > 0:
+                            zero_size = size
+                            if zero_size > max_section_size:
+                                zero_size = max_section_size
+                            zero_addr = addr
+
+                            print ('Init section to 0 :: fraction(base: 0x%x, size: 0x%x)' % (zero_addr, zero_size))
+                            self.write(
+                                zero_addr,
+                                zero_size,
+                                [0] * zero_size
+                            )
+
+                            size -= zero_size
+                            addr += zero_size
+
+                        #self.write(
+                        #    addr,
+                        #    size,
+                        #    [0] * size
+                        #)
 
 
             set_pc_addr_config = self.config.get('**/debug_bridge/set_pc_addr')
